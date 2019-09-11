@@ -6,27 +6,20 @@
  * @flow
  */
 
-import React, { Fragment } from 'react';
-import { observer } from "mobx-react";
-import { SafeAreaView, ScrollView, View, StatusBar } from 'react-native';
+import React, { Component } from "react";
+import Header from "../../Components/Header/index";
+import Question from "../../Components/Question";
+import Answer from "../../Components/Answer/index";
 
-import TodoList from '../../components/TodoList';
-
-import stores from '../../stores';
-
-const App = () => {
-  return (
-    <View>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView contentInsetAdjustmentBehavior="automatic">
-          <View>
-            <TodoList todoStore={stores.todoStore} />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </View>
-  );
-};
-
+class App extends Component {
+  render() {
+    return (
+      <>
+        <Header />
+        <Question />
+        <Answer refArray={["one", "two", "three", "four", "five"]} />
+      </>
+    );
+  }
+}
 export default App;
