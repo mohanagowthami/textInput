@@ -1,19 +1,20 @@
 import React, { Component } from "react";
-import { observable } from "mobx-react";
 import { TextInput } from "react-native";
-
+import { observable } from "mobx";
+import { observer } from "mobx-react";
+@observer
 export default class TextInputItem extends Component {
+  refInput = "";
+  @observable inputText = this.props.value;
   submit = text => {
-    const { nextRefValue } = this.props;
-    console.log(text);
-    if (this.props.nextRefValue != undefined) {
-      console.log(this.refs);
-      //   this.refs[`${this.props.nextRefValue}`].focus();
-      this.refs.two.focus();
-    }
+    this.inputText = text;
+    console.log("refInput in child", this.refInput);
+    this.props.onSubmitRef(this.refInput);
   };
   renderDisplay = () => {
-    let k = (
+    let len = this.props.value === "" ? 2 : 1;
+    console.log("len", len);
+    return (
       <TextInput
         style={{
           shadowColor: "#000",
@@ -28,18 +29,19 @@ export default class TextInputItem extends Component {
           height: 100,
           backgroundColor: "#E8E8E8",
           borderRadius: 20,
-          color: "blue"
+          color: "blue",
+          marginLeft: 20,
+          marginBottom: 20
         }}
-        ref={this.props.currentRefValue}
-        maxLength={1}
+        ref={this.props.refInput}
+        value={this.inputText}
+        maxLength={len}
         onChangeText={this.submit}
       ></TextInput>
     );
-    console.log("textitem", k);
-    return k;
   };
   render() {
-    console.log("refvalue", this.props.currentRefValue);
+    this.refInput = this.props.refInput;
     return <>{this.renderDisplay()}</>;
   }
 }
