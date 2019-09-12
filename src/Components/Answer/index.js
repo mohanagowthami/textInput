@@ -8,6 +8,9 @@ import { View } from "react-native";
 export default class Answer extends Component {
   refInstanceArray = [];
   text = "";
+  onSubmitText = text => {
+    console.log(text);
+  };
   onSubmitRef = reference => {
     // this.text = this.text.concat(userText);
     console.log("text", this.text);
@@ -17,6 +20,7 @@ export default class Answer extends Component {
     console.log("index", index);
     let shiftFocusIndex = textInputInfo.index.indexOf(index + 1);
     shiftFocusIndex = shiftFocusIndex === -1 ? index + 1 : index + 2;
+    console.log("value", this.refInstanceArray[1].current.value);
 
     if (shiftFocusIndex < textInputInfo.len)
       this.refInstanceArray[shiftFocusIndex].current.focus();
@@ -38,6 +42,7 @@ export default class Answer extends Component {
           value={findedIndex === -1 ? "" : textInputInfo.alpha[findedIndex]}
           onSubmitRef={this.onSubmitRef}
           key={count++}
+          onSubmitUserText={this.onSubmitText}
         />
       );
       textInputItemArray.push(k);

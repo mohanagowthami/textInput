@@ -8,6 +8,7 @@ export default class TextInputItem extends Component {
   @observable inputText = this.props.value;
   submit = text => {
     this.inputText = text;
+    this.props.onSubmitUserText(text);
     console.log("refInput in child", this.refInput);
     this.props.onSubmitRef(this.refInput);
   };
@@ -37,6 +38,7 @@ export default class TextInputItem extends Component {
         value={this.inputText}
         maxLength={len}
         onChangeText={this.submit}
+        testID="box"
       ></TextInput>
     );
   };

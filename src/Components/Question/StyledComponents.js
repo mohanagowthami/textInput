@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/native";
 export const QuestionContainer = styled.View`
   flex-direction: column;
   margin: 15px;
