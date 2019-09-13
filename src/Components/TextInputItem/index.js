@@ -2,19 +2,36 @@ import React, { Component } from "react";
 import { TextInput } from "react-native";
 import { observable } from "mobx";
 import { observer } from "mobx-react";
+
 @observer
 export default class TextInputItem extends Component {
   refInput = "";
   @observable inputText = this.props.value;
+
   submit = text => {
+    //console.log("t in submit", this.inputText);
     this.inputText = text;
-    this.props.onSubmitUserText(text);
-    console.log("refInput in child", this.refInput);
-    this.props.onSubmitRef(this.refInput);
+    console.log("t in submit", this.inputText);
+
+    this.props.onSubmitRefAndText(this.refInput, text);
   };
+  keyPress = ({ nativeEvent }) => {
+    console.log("native event", nativeEvent);
+    if (nativeEvent.key === "Backspace") {
+      console.log("backspace key");
+      console.log("t", this.inputText);
+    }
+    if (nativeEvent.key === "Backspace" && this.inputText === "") {
+      console.log("back space key and empty text");
+      this.props.onSubmitRefAndText(this.refInput, "");
+    }
+  };
+
+  onKeyPress = event => {
+    console.log(event);
+  };
+
   renderDisplay = () => {
-    let len = this.props.value === "" ? 2 : 1;
-    console.log("len", len);
     return (
       <TextInput
         style={{
@@ -36,12 +53,17 @@ export default class TextInputItem extends Component {
         }}
         ref={this.props.refInput}
         value={this.inputText}
-        maxLength={len}
         onChangeText={this.submit}
         testID="box"
-      ></TextInput>
+        editable={this.props.value === null ? true : false}
+        onKeyPress={this.keyPress}
+        maxLength={1}
+        keyboardType="default"
+        autoFocus={this.props.focus}
+      />
     );
   };
+
   render() {
     this.refInput = this.props.refInput;
     return <>{this.renderDisplay()}</>;

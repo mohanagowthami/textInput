@@ -7,47 +7,59 @@ import { View } from "react-native";
 
 export default class Answer extends Component {
   refInstanceArray = [];
-  text = "";
-  onSubmitText = text => {
-    console.log(text);
-  };
-  onSubmitRef = reference => {
-    // this.text = this.text.concat(userText);
-    console.log("text", this.text);
-    const { textInputInfo } = this.props;
-    console.log("in parent", reference);
+  userEnteredWord = [];
+  onSubmitRefAndText = (reference, letter) => {
     index = this.refInstanceArray.indexOf(reference);
-    console.log("index", index);
-    let shiftFocusIndex = textInputInfo.index.indexOf(index + 1);
-    shiftFocusIndex = shiftFocusIndex === -1 ? index + 1 : index + 2;
-    console.log("value", this.refInstanceArray[1].current.value);
+    const { textInputInfo } = this.props;
+    if (letter === "") {
+      if (index === 0) {
+        this.refInstanceArray[index].current.focus();
+      } else {
+        let shiftFocusIndex = textInputInfo.index.indexOf(index - 1);
+        shiftFocusIndex =
+          this.userEnteredWord[index].length === 0
+            ? shiftFocusIndex === -1
+              ? index - 1
+              : index - 2
+            : index;
+        if (shiftFocusIndex == index) this.userEnteredWord[index] = "";
 
-    if (shiftFocusIndex < textInputInfo.len)
-      this.refInstanceArray[shiftFocusIndex].current.focus();
+        this.refInstanceArray[shiftFocusIndex].current.focus();
+      }
+    } else {
+      this.userEnteredWord[index] = letter;
+      let shiftFocusIndex = textInputInfo.index.indexOf(index + 1);
+      console.log("shift", shiftFocusIndex);
+      if (shiftFocusIndex !== -1)
+        this.userEnteredWord[index + 1] = textInputInfo.alpha[shiftFocusIndex];
+      shiftFocusIndex = shiftFocusIndex === -1 ? index + 1 : index + 2;
+      console.log("sh", shiftFocusIndex);
+      shiftFocusIndex < textInputInfo.len
+        ? this.refInstanceArray[shiftFocusIndex].current.focus()
+        : this.refInstanceArray[0].current.focus();
+    }
+    console.log("enteredword", this.userEnteredWord);
   };
 
   renderDisplay = () => {
     let count = 0;
-
     let textInputItemArray = [];
     const { textInputInfo } = this.props;
     for (i = 0; i < textInputInfo.len; i++) {
       const textInputRef = React.createRef();
       this.refInstanceArray.push(textInputRef);
       findedIndex = textInputInfo.index.indexOf(i);
-
       let k = (
         <TextInputItem
           refInput={textInputRef}
-          value={findedIndex === -1 ? "" : textInputInfo.alpha[findedIndex]}
-          onSubmitRef={this.onSubmitRef}
+          value={findedIndex === -1 ? null : textInputInfo.alpha[findedIndex]}
           key={count++}
-          onSubmitUserText={this.onSubmitText}
+          onSubmitRefAndText={this.onSubmitRefAndText}
+          focus={i == 0 ? true : false}
         />
       );
       textInputItemArray.push(k);
     }
-    console.log("refarray", this.refInstanceArray);
 
     return textInputItemArray;
   };
