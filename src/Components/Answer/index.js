@@ -1,9 +1,7 @@
 import React, { Component } from "react";
-import { TextInput } from "react-native";
-import { blue } from "ansi-colors";
-import { observable } from "mobx";
+
 import TextInputItem from "../TextInputItem/index";
-import { View } from "react-native";
+import { AnswerView } from "./StyleComponents";
 
 export default class Answer extends Component {
   refInstanceArray = [];
@@ -38,7 +36,6 @@ export default class Answer extends Component {
         ? this.refInstanceArray[shiftFocusIndex].current.focus()
         : this.refInstanceArray[0].current.focus();
     }
-    console.log("enteredword", this.userEnteredWord);
   };
 
   renderDisplay = () => {
@@ -55,7 +52,6 @@ export default class Answer extends Component {
           value={findedIndex === -1 ? null : textInputInfo.alpha[findedIndex]}
           key={count++}
           onSubmitRefAndText={this.onSubmitRefAndText}
-          focus={i == 0 ? true : false}
         />
       );
       textInputItemArray.push(k);
@@ -63,12 +59,17 @@ export default class Answer extends Component {
 
     return textInputItemArray;
   };
+  renderFocus = () => {
+    console.log("re", this.refInstanceArray[0]);
+    //this.refInstanceArray[0].current.focus();
+  };
 
   render() {
     return (
-      <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+      <AnswerView>
         {this.renderDisplay()}
-      </View>
+        {this.renderFocus()}
+      </AnswerView>
     );
   }
 }
