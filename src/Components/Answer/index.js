@@ -4,7 +4,6 @@ import TextInputItem from "../TextInputItem/index";
 import HintBox from "../HintBox/index";
 
 import { AnswerView } from "./StyleComponents";
-
 export default class Answer extends Component {
   refInstanceArray = [];
   onSubmitIndex = index => {
@@ -19,8 +18,9 @@ export default class Answer extends Component {
   };
   onSubmitIndexForBackspace = index => {
     if (
-      this.refInstanceArray[index].current.inputText.length === 1 ||
-      index === 0
+      this.refInstanceArray[index].current.inputText !== undefined &&
+      (this.refInstanceArray[index].current.inputText.length === 1 ||
+        index === 0)
     ) {
       this.refInstanceArray[index].current.onFocus();
     } else {
