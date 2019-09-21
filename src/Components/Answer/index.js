@@ -37,7 +37,6 @@ export default class Answer extends Component {
       if (findedIndex === -1) {
         const textInputRef = React.createRef();
         this.refInstanceArray.push(textInputRef);
-
         k = (
           <TextInputItem
             ref={textInputRef}
@@ -57,7 +56,6 @@ export default class Answer extends Component {
       }
       WordBoxArray.push(k);
     }
-
     return WordBoxArray;
   };
 

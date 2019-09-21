@@ -2,8 +2,8 @@ import React from "react";
 import { render, fireEvent } from "react-native-testing-library";
 import { TextInput } from "react-native";
 import TextInputItem from "./index";
-describe(" testing call back with user input in text input", () => {
-  it("should test the call back of user input and ref", () => {
+describe(" testing the textinputItem component", () => {
+  it("should test the call back of index and testing the access of element by ref ", () => {
     const mockFn = jest.fn();
     const mockFnBackspace = jest.fn();
 

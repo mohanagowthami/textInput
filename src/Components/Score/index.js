@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { View } from "react-native";
+
 import { NumberScore, TextScore } from "./StyleComponents";
 class Score extends Component {
   render() {
