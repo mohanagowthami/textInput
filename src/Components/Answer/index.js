@@ -6,7 +6,7 @@ import HintBox from "../HintBox/index";
 import { AnswerView } from "./StyleComponents";
 export default class Answer extends Component {
   refInstanceArray = [];
-  onSubmitIndex = index => {
+  onEnterLetter = index => {
     if (
       index < this.refInstanceArray.length - 1 &&
       this.refInstanceArray[index].current.inputText.length === 1
@@ -16,7 +16,7 @@ export default class Answer extends Component {
       this.refInstanceArray[index].current.onFocus();
     }
   };
-  onSubmitIndexForBackspace = index => {
+  onPressBackspace = index => {
     if (
       this.refInstanceArray[index].current.inputText !== undefined &&
       (this.refInstanceArray[index].current.inputText.length === 1 ||
@@ -42,9 +42,9 @@ export default class Answer extends Component {
           <TextInputItem
             ref={textInputRef}
             index={count++}
-            onSubmitIndex={this.onSubmitIndex}
+            onEnterLetter={this.onEnterLetter}
             key={count}
-            onSubmitIndexForBackspace={this.onSubmitIndexForBackspace}
+            onPressBackspace={this.onPressBackspace}
           />
         );
       } else {

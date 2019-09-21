@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/native";
 export const SingleHintBox = styled.View`
   shadow-color: #000;
   shadow-opacity: 0.5;

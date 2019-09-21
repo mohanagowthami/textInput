@@ -10,11 +10,11 @@ export default class TextInputItem extends Component {
   myRef;
   submit = text => {
     this.inputText = text.toUpperCase();
-    this.props.onSubmitIndex(this.props.index);
+    this.props.onEnterLetter(this.props.index);
   };
   keyPress = ({ nativeEvent }) => {
     if (nativeEvent.key === "Backspace") {
-      this.props.onSubmitIndexForBackspace(this.props.index);
+      this.props.onPressBackspace(this.props.index);
     }
   };
   onFocus = () => {

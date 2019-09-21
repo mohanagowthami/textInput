@@ -5,12 +5,23 @@ import TextInputItem from "./index";
 describe(" testing call back with user input in text input", () => {
   it("should test the call back of user input and ref", () => {
     const mockFn = jest.fn();
+    const mockFnBackspace = jest.fn();
+
     const textInputRef = React.createRef();
     const { getByType } = render(
-      <TextInputItem onSubmitRefAndText={mockFn} refInput={textInputRef} />
+      <TextInputItem
+        onEnterLetter={mockFn}
+        onPressBackspace={mockFnBackspace}
+        ref={textInputRef}
+        index={0}
+      />
     );
     const element = getByType(TextInput);
-    fireEvent.changeText(element, "k");
-    expect(mockFn).toHaveBeenCalledWith(textInputRef, "k");
+    textInputRef.current.onFocus();
+    console.log(textInputRef.current);
+    fireEvent.changeText(element, "p");
+    expect(mockFn).toHaveBeenCalledWith(0);
+    console.log(textInputRef);
+    expect(textInputRef.current.inputText).toBe("P");
   });
 });
